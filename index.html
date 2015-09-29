@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>D3.js Slider Examples</title>
+  <link rel="stylesheet" href="d3.slider.css" />  
+  <style>
+
+    body {
+      font-family: Verdana,Arial,sans-serif;
+    }
+
+    h2 {
+      font-size: 1.2em;
+      margin: 60px 0 5px 0;
+    }
+
+    .wrapper {
+      width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .wrapper > div {
+      margin: 35px 0;
+    }
+   .d3-slider-horizontal .d3-slider-handle {
+  width: 3em;
+  height: 3em;
+  border-radius: 50% 50% 50% 0;
+  transform: rotate(-45deg);
+        background: #64B5F6;
+        top: -3.2em;
+         margin-left: -1.5em;
+         border-width: medium;
+  border-color: rgb(242, 242, 242);
+
+
+      }
+      .d3-slider-horizontal .d3-slider-handle.happy:before{
+           content: "";
+           background-image:url(Happy.svg);
+           
+          display: flex;
+          transform: rotate(45deg);
+          height: 3em;
+          
+      }
+    .d3-slider-horizontal .d3-slider-handle.medium:before{
+           content: "";
+           background-image:url(Medium.svg);
+           
+          display: flex;
+          transform: rotate(45deg);
+          height: 3em;
+          
+      }
+    .d3-slider-horizontal .d3-slider-handle.sad:before{
+           content: "";
+           background-image:url(Sad.svg);
+           
+          display: flex;
+          transform: rotate(45deg);
+          height: 3em;
+          
+      }
+
+
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+
+  	<h1>D3.js Slider Examples</h1>
+
+
+    <h2>Slider with slide event: <span id="slider4text">50</span></h2>
+    <code>d3.slider().on("slide", function(evt, value) {<br>
+    &nbsp;&nbsp;d3.select('#slider3text').text(value);<br>
+    })</code>
+    <div id="slider4"></div>
+
+   
+
+  <script src="http://d3js.org/d3.v3.min.js"></script>
+  <script src="d3.slider.js"></script>
+  <script>
+      var color = d3.scale.linear()
+    .domain([0, 50 ,100])
+    .range(["#F44336", "#64B5F6" ,"#8BC34A"]);
+     
+
+    d3.select('#slider4').call(d3.slider().value(50).on("slide", function(evt, value) {
+      d3.select('#slider4text').text(value);
+        
+        d3.select('.colour').style('background',color(value));
+        d3.select('#slider4').style('background',color(value));
+        if(value > 75){
+            d3.select('.colour').classed("happy", true);
+        }else{
+            d3.select('.colour').classed("happy", false);        
+        }
+        if( 25 < value && value < 75){
+            d3.select('.colour').classed("medium", true);
+        }else{
+            d3.select('.colour').classed("medium", false);        
+        }
+        if( 25 > value){
+            d3.select('.colour').classed("sad", true);
+        }else{
+            d3.select('.colour').classed("sad", false);        
+        }
+       
+    }));
+        d3.select('.d3-slider-handle').classed("colour", true);
+
+  </script>
+ 
+</body>
+</html>
