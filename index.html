@@ -29,7 +29,7 @@
   height: 3em;
   border-radius: 50% 50% 50% 0;
   transform: rotate(-45deg);
-        background: #64B5F6;
+        /*background: #64B5F6;*/
         top: -3.2em;
          margin-left: -1.5em;
          border-width: medium;
@@ -71,7 +71,7 @@
 <body>
   <div class="wrapper">
 
-  	<h1>D3.js Slider Examples</h1>
+  	<h1>D3.js emotional feedback Slider</h1>
 
 
     <h2>Slider with slide event: <span id="slider4text">50</span></h2>
@@ -80,21 +80,42 @@
     })</code>
     <div id="slider4"></div>
 
+    <p>This is a slider that is intended to replace the likert style forms. I used d3 because it allows for the neat mapping of colour scales. which gives the element that nice, red, green transition.
+      This element can be used on most kind of feed back forms.
+      <ul>
+        <li>The Smiling face can be applied to most 5 point questions, concerned with satisfation, clarity, and ease of use.</li>
+        <li>The playfull nature of it make it inviting to use.</li>
+        <li>It eliminate indecisivness where a user may be torn between to ratings.</li>
+      </ul>
+    </p>
+    <p>
+    It's disadvantages
+    <ul>
+      <li>By design it allows for indecisive (dead center answers)</li>
+    </ul>
+    Room for improvment, neater code, nicer smiling faces, a greater degree of diffrent faces, be made more modular, like a jquery plugin.
+    </p>
+
    
 
   <script src="http://d3js.org/d3.v3.min.js"></script>
   <script src="d3.slider.js"></script>
   <script>
-      var color = d3.scale.linear()
-    .domain([0, 50 ,100])
-    .range(["#F44336", "#64B5F6" ,"#8BC34A"]);
+    var startingValue = 75
+    var domain = [0, 50 ,100]
+    var value = startingValue
+    var range = ["#F44336", "#64B5F6" ,"#8BC34A"]
+    var color = d3.scale.linear()
+    .domain(domain)
+    .range(range);
      
 
-    d3.select('#slider4').call(d3.slider().value(50).on("slide", function(evt, value) {
+    d3.select('#slider4').call(d3.slider().value(startingValue).on("slide", function(evt, value) {
       d3.select('#slider4text').text(value);
         
         d3.select('.colour').style('background',color(value));
         d3.select('#slider4').style('background',color(value));
+
         if(value > 75){
             d3.select('.colour').classed("happy", true);
         }else{
@@ -112,7 +133,11 @@
         }
        
     }));
-        d3.select('.d3-slider-handle').classed("colour", true);
+     d3.select('.d3-slider-handle').style('background',color(value));
+    d3.select('.d3-slider-handle').classed("colour", true);
+    d3.select('.d3-slider-handle').classed("happy", true);
+    d3.select('#slider4').style('background',color(value));
+
 
   </script>
  
